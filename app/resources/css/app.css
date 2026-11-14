@@ -3375,6 +3375,30 @@ body.is-resizing #game-list {
   display: none;
 }
 
+/* The small platinum trophy beside an achievement the platinum asks for (app.js, platinumMarkHtml). */
+.achievement .content .title .plat-mark {
+  margin-left: 4px;
+  font-size: 0.8em;
+  color: var(--trophy-platinum);
+}
+
+#achievement .wrapper > .header .platinumOnly {
+  margin-left: 10px;
+  vertical-align: middle;
+  color: var(--trophy-platinum);
+}
+#achievement .wrapper > .header .platinumOnly[hidden] {
+  display: none;
+}
+#achievement .wrapper > .header .platinumOnly.active {
+  border-color: color-mix(in srgb, var(--trophy-platinum) 60%, transparent);
+}
+/* "Platinum only": the rows and section headings the platinum does not ask for are hidden. */
+#achievement.has-platinum-split.show-platinum-only .achievement-list ul > li:has(> .achievement[data-platinum='0']),
+#achievement.has-platinum-split.show-platinum-only .achievement-list ul > li.ach-group-head[data-platinum='0'] {
+  display: none;
+}
+
 /* DLC/update tag from SteamHunters achievement groups (absent when the game has none). */
 .achievement .content .ach-category {
   font-family: var(--font-body);

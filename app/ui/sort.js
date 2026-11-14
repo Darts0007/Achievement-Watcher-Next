@@ -234,7 +234,7 @@ function paintAchievementGroupHeads(root) {
     last = at;
     const group = groups[Number(at)];
     if (!group) return;
-    const head = $('<li class="ach-group-head"></li>').attr('data-group', at);
+    const head = $('<li class="ach-group-head"></li>').attr('data-group', at).attr('data-platinum', group.platinum === false ? '0' : '1');
     const toggle = $('<button type="button" class="ach-group-toggle" aria-expanded="true"><i class="fas fa-chevron-down" aria-hidden="true"></i></button>');
     toggle.append($('<span class="ach-group-name"></span>').text(group.label), $('<span class="ach-group-count"></span>').text(`${group.unlocked} / ${group.total}`));
     $(this).before(head.append(toggle));

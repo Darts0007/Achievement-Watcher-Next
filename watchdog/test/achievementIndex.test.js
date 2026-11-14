@@ -8,9 +8,31 @@ const {
   findSchemaAchievement,
   buildPreviousAchievementIndex,
   seedPreviewNames,
+  platinumScope,
   requiredCount,
   requiredUnlockedCount,
 } = require('../util/achievementIndex.js');
+
+// Marvel's Spider-Man Remastered: the PS5 platinum leaves aside its New Game+ and DLC trophy groups.
+test('the platinum counts only the base game, a linked PlayStation group or a Steam set left aside', () => {
+  const schema = [{ name: 'BASE_1' }, { name: 'BASE_2' }, { name: 'HEIST_1' }, { name: 'NGP_1' }, { name: 'OLD', archived: true }, { name: 'SET_1', category: 'Expansion' }];
+  const link = { trophies: { BASE_1: { type: 'B' }, BASE_2: { type: 'G' }, HEIST_1: { type: 'B', group: 'CTNS: The Heist' }, NGP_1: { type: 'S', group: 'New Game+' } } };
+  const scope = platinumScope(schema, link);
+  assert.deepEqual([...scope].sort(), ['BASE_1', 'BASE_2']);
+  assert.equal(requiredCount(schema, scope), 2);
+
+  const index = buildSchemaIndex(schema);
+  const unlocked = (names) => names.map((name) => ({ name: name.toLowerCase(), Achieved: 1 }));
+  assert.equal(requiredUnlockedCount(unlocked(['BASE_1', 'HEIST_1', 'NGP_1', 'SET_1']), index, scope), 1);
+  assert.equal(requiredUnlockedCount(unlocked(['BASE_1', 'BASE_2']), index, scope), 2);
+});
+
+test('without DLC to set apart, or with only DLC, the platinum keeps counting every achievement', () => {
+  assert.equal(platinumScope([{ name: 'A' }, { name: 'B' }], null), null);
+  assert.equal(platinumScope([{ name: 'A' }, { name: 'B' }], { trophies: { A: { type: 'B' } } }), null);
+  assert.equal(platinumScope([{ name: 'A', category: 'Set 1' }, { name: 'B', category: 'Set 2' }], null), null);
+  assert.equal(requiredCount([{ name: 'A' }, { name: 'B', archived: true }], null), 1);
+});
 
 test('schema index keeps the first case-insensitive name match, like Array.find', () => {
   const first = { name: 'Achievement_One' };

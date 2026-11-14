@@ -195,6 +195,7 @@ const {
   findSchemaAchievement,
   buildPreviousAchievementIndex,
   seedPreviewNames,
+  platinumScope,
   requiredCount,
   requiredUnlockedCount,
 } = require('./util/achievementIndex.js');
@@ -1256,12 +1257,14 @@ var app = {
 
             // Platinum detection: snapshot the prior unlock count so this fires only when the current
             // scan flips the game to fully unlocked and a real unlock notification also fired.
-            const platinumTotal = requiredCount(game.achievement.list);
+            // Only what the platinum asks for counts: the base game, its DLC sets left aside.
+            const psnLink = psnTrophyLink.readLink(game.appid);
+            const platinumNeeds = platinumScope(game.achievement.list, psnLink);
+            const platinumTotal = requiredCount(game.achievement.list, platinumNeeds);
             const previousIndex = buildPreviousAchievementIndex(cache);
-            const platinumPrevUnlocked = requiredUnlockedCount(cache, schemaIndex);
+            const platinumPrevUnlocked = requiredUnlockedCount(cache, schemaIndex, platinumNeeds);
             let platinumNewUnlock = false;
             let platinumIcon = null;
-            const psnLink = psnTrophyLink.readLink(game.appid);
             // The game's own "every achievement" one, popped as the platinum in place of the 100% one.
             if (game.__platinumLike === undefined) game.__platinumLike = platinumLikeForGame(game, self.options.achievement.lang, rarityMap);
             const platinumOn = self.options.notification.platinum !== false;
@@ -1471,7 +1474,7 @@ var app = {
             }
 
             // Fire a dedicated Platinum toast when this scan flips the game to 100%.
-            const platinumNowUnlocked = requiredUnlockedCount(achievements, schemaIndex);
+            const platinumNowUnlocked = requiredUnlockedCount(achievements, schemaIndex, platinumNeeds);
             if (
               platinumNewUnlock &&
               platinumTotal > 0 &&

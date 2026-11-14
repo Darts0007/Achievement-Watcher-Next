@@ -574,8 +574,14 @@ function linkedTrophyOf(game, achievement) {
 const linkedTrophyType = (game, achievement) => linkedTrophyOf(game, achievement)?.type;
 
 // The DLC an achievement belongs to ('' for the base game): its own set, else its linked trophy's group.
-// Shared by the achievement page's sections and the library's "100% base game" filter.
-const achievementCategoryOf = (game, achievement) => achievement.category || (linkedTrophyOf(game, achievement) || {}).group;
+// Shared by the achievement page's sections and the library's "100% base game" filter. The group is
+// read in every rarity mode (not only the trophy mode), since it tells what the platinum asks for.
+const linkedGroupOf = (game, achievement) => {
+  const link = psnLinkOf(game);
+  const trophy = link && achievement && link.trophies[achievement.name];
+  return (trophy && trophy.group) || '';
+};
+const achievementCategoryOf = (game, achievement) => achievement.category || linkedGroupOf(game, achievement);
 
 const linkedPlatinumOf = (game) => {
   const platinum = psnLinkOf(game)?.platinum;
@@ -607,7 +613,7 @@ function psnPlatinumRow(game, baseGroup) {
     $('#achievement .achievements').data('lang-globalStat') || ''
   )}</span></div>`;
   const html = `<li>
-      <div class="achievement psn-platinum ps-trophy rare rarity-platinum" data-trophy="platinum" data-index="-1"${groupAttr} data-achieved="${achieved ? 1 : 0}">
+      <div class="achievement psn-platinum ps-trophy rare rarity-platinum" data-trophy="platinum" data-index="-1"${groupAttr} data-platinum="1" data-achieved="${achieved ? 1 : 0}">
         <div class="box"><div class="glow mask contain"><div class="glow mask ray"><div class="glow fx"></div></div></div>
           <div class="icon" style="background: ${cssUrl(icon)};"></div></div>
         <div class="content">
@@ -8267,8 +8273,26 @@ var app = {
       const categoryOf = (achievement) => achievementCategoryOf(game, achievement);
       const groups = achievementGroups.achievementGroups(game.achievement.list, categoryOf);
       const groupIndex = achievementGroups.hasDlc(groups) ? new Map(groups.map((group, index) => [group.key, index])) : null;
+      /*
+        What the platinum asks for: the base game, its DLC sets left aside (trophyStats.platinumEarnedAt).
+        Only told apart when the game has both; each row the platinum asks for then wears a small platinum
+        trophy beside its name, and the "Platinum only" button hides the rest. A list made only of sets has
+        no base game, so the whole list counts and no mark shows.
+      */
+      const platinumSplit = Boolean(groupIndex) && groups.some((group) => group.key === achievementGroups.BASE);
+      const neededForPlatinum = (achievement) => !String(categoryOf(achievement) || '').trim();
+      const platinumMarkLabel = escapeHtml(t('ach-plat-needed', 'Needed for Platinum', 'Requis pour le Platine'));
+      const platinumMarkHtml = (needed) =>
+        platinumSplit && needed ? ` <i class="fas fa-trophy plat-mark" title="${platinumMarkLabel}" aria-label="${platinumMarkLabel}"></i>` : '';
+      $('#achievement').toggleClass('has-platinum-split', platinumSplit);
+      $('#btn-platinum-only')
+        .prop('hidden', !platinumSplit)
+        .attr('title', t('ach-plat-only-title', 'Hide what the Platinum does not need', 'Masquer ce que le Platine ne demande pas'))
+        .children('span')
+        .text(t('ach-plat-only', 'Platinum only', 'Platine seulement'));
+      const baseLabel = platinumSplit ? t('ach-group-base-platinum', 'Platinum Trophies', 'Trophées du Platine') : t('ach-group-base', 'Base game', 'Jeu de base');
       window.achievementGroupHeads = groupIndex
-        ? groups.map((group) => ({ label: group.key || t('ach-group-base', 'Base game', 'Jeu de base'), unlocked: group.unlocked, total: group.total }))
+        ? groups.map((group) => ({ label: group.key || baseLabel, unlocked: group.unlocked, total: group.total, platinum: !platinumSplit || group.key === achievementGroups.BASE }))
         : [];
 
       let i = 0;
@@ -8294,10 +8318,11 @@ var app = {
           : `<div class="description">${escapeHtml(realDesc)}</div>`;
 
         const pinned = !achievement.Achieved && pinnedNames.has(achievement.name);
+        const needed = neededForPlatinum(achievement);
         let template = `
                 <li>
 
-                         <div class="achievement${achievement.manual ? ' manual' : ''}${pinned ? ' is-pinned' : ''}" data-name="${escapeHtml(achievement.name)}" data-index="${i}"${groupIndex ? ` data-group="${groupIndex.get(String(category || '').trim())}"` : ''} data-pinned="${pinned ? 1 : 0}" data-achieved="${
+                         <div class="achievement${achievement.manual ? ' manual' : ''}${pinned ? ' is-pinned' : ''}" data-name="${escapeHtml(achievement.name)}" data-index="${i}"${groupIndex ? ` data-group="${groupIndex.get(String(category || '').trim())}"` : ''} data-platinum="${!platinumSplit || needed ? 1 : 0}" data-pinned="${pinned ? 1 : 0}" data-achieved="${
           achievement.Achieved ? 1 : 0
         }" data-manual="${achievement.manual ? 1 : 0}" title="${achievement.manual ? manualTitle : ''}">
                             <div class="box">
@@ -8313,7 +8338,7 @@ var app = {
                                   game.system === 'playstation' || trophyType
                                     ? `<i class="fas fa-trophy" data-type="${escapeHtml(trophyType)}"></i> ${escapeHtml(achievement.displayName)}`
                                     : `${escapeHtml(achievement.displayName)}`
-                                }${pinned ? ` <i class="fas fa-thumbtack ach-pin" title="${pinLabel}" aria-label="${pinLabel}"></i>` : ''}</div>
+                                }${platinumMarkHtml(needed)}${pinned ? ` <i class="fas fa-thumbtack ach-pin" title="${pinLabel}" aria-label="${pinLabel}"></i>` : ''}</div>
                                 ${
                                   category
                                     ? `<div class="ach-category">${escapeHtml(category)}</div>`

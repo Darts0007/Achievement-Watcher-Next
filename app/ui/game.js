@@ -498,6 +498,16 @@ function getGlobalStat(appid, source, gameName, achievements, context) {
       ]).popup({ window: remote.getCurrentWindow(), x: Math.round(rect.left * zoom), y: Math.round(rect.bottom * zoom) });
     });
 
+    // Hides the achievements the platinum does not ask for (DLC sets), and their section headings.
+    // Kept for the session, across games, like the folded sections.
+    $('#btn-platinum-only').on('click keydown', function (event) {
+      if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      const on = !$('#achievement').hasClass('show-platinum-only');
+      $('#achievement').toggleClass('show-platinum-only', on);
+      $(this).toggleClass('active', on).attr('aria-pressed', String(on));
+    });
+
     // From the achievements list back to the game's overview (app.js, setGameView).
     $('#btn-overview').on('click keydown', function (event) {
       if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') return;
