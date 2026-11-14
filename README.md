@@ -24,13 +24,13 @@ local saves and console emulators, shows them in one library, and pops up each u
 
 <sub>Applies to games matched to their PlayStation trophy list and to Steam games with DLC achievement sets. For example, Marvel's Spider-Man Remastered: 50 of 78 achievements are needed for the Platinum.</sub>
 
-[![Latest release](https://img.shields.io/github/v/release/Shirowwww/Achievement-Watcher-Next?display_name=tag&sort=semver&style=flat-square&color=f5b301)](https://github.com/Shirowwww/Achievement-Watcher-Next/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/Shirowwww/Achievement-Watcher-Next/total?style=flat-square&color=2ea043)](https://github.com/Shirowwww/Achievement-Watcher-Next/releases)
+[![Latest release](https://img.shields.io/github/v/release/Darts0007/Achievement-Watcher-Next?display_name=tag&style=flat-square&color=f5b301)](https://github.com/Darts0007/Achievement-Watcher-Next/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/Darts0007/Achievement-Watcher-Next/total?style=flat-square&color=2ea043)](https://github.com/Darts0007/Achievement-Watcher-Next/releases)
 ![Windows 10 | 11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?logo=windows&style=flat-square)
 ![Linux](https://img.shields.io/badge/Linux-AppImage%20beta-FCC624?logo=linux&logoColor=black&style=flat-square)
 [![License](https://img.shields.io/badge/license-LGPL--3.0-blue?style=flat-square)](LICENSE)
 
-### [Download](https://github.com/Shirowwww/Achievement-Watcher-Next/releases/latest) &nbsp;·&nbsp; [Website](https://shirowwww.github.io/Achievement-Watcher-Next/) &nbsp;·&nbsp; [Docs](https://shirowwww.github.io/Achievement-Watcher-Next/README.html) &nbsp;·&nbsp; [Discord](https://discord.gg/DjTMrDsXTh)
+### [Download](https://github.com/Darts0007/Achievement-Watcher-Next/releases/latest) &nbsp;·&nbsp; [Website](https://shirowwww.github.io/Achievement-Watcher-Next/) &nbsp;·&nbsp; [Docs](https://shirowwww.github.io/Achievement-Watcher-Next/README.html) &nbsp;·&nbsp; [Discord](https://discord.gg/DjTMrDsXTh)
 
 <img src="docs/screenshot/aw-next-banner.webp" width="100%" alt="Achievement Watcher Next in 52 seconds: the unlock popup in ten presets, the in-game list, one library for every store and emulator, rarity, thirteen themes, Game Health, trophy grades, six library layouts, the preset designer, notification options, controller navigation and 28 languages, on Windows, Linux and the Steam Deck">
 
@@ -131,7 +131,7 @@ keeps are encrypted by Windows or your desktop keyring.
 
 | | Windows 10 and 11 | Linux (x64, beta) |
 |---|---|---|
-| **Get** | `Achievement.Watcher.Setup.<version>.exe` or `Achievement.Watcher.Portable.<version>.zip` from the [latest release](https://github.com/Shirowwww/Achievement-Watcher-Next/releases/latest) | `Achievement.Watcher.<version>.AppImage`, same release |
+| **Get** | `Achievement.Watcher.Setup.<version>.exe` or `Achievement.Watcher.Portable.<version>.zip` from the [latest release](https://github.com/Darts0007/Achievement-Watcher-Next/releases/latest) | `Achievement.Watcher.<version>.AppImage` from the [original project's releases](https://github.com/Shirowwww/Achievement-Watcher-Next/releases/latest) (without this fork's Platinum changes) |
 | **Run** | Run the installer, or extract the ZIP | `chmod +x`, then run. Needs FUSE 2 (`libfuse2t64` on Ubuntu 24.04) |
 | **Data** | `%APPDATA%\Achievement Watcher Next` | `~/.config/Achievement Watcher Next` |
 | **Guide** | [Getting started](https://shirowwww.github.io/Achievement-Watcher-Next/getting-started.html) | [Linux and Steam Deck](https://shirowwww.github.io/Achievement-Watcher-Next/linux.html) |
