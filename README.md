@@ -197,11 +197,17 @@ or the [cs.rin thread](https://cs.rin.ru/forum/viewtopic.php?f=20&t=161187), whe
 announced. For questions, help and sharing presets, join the [Discord server](https://discord.gg/DjTMrDsXTh).
 Report a vulnerability privately through the [security policy](SECURITY.md).
 
-Download only from the [official releases](https://github.com/Shirowwww/Achievement-Watcher-Next/releases).
-Each release can be checked on VirusTotal by its SHA-256
-([3.12.7](https://www.virustotal.com/gui/file/fb836d9224e789f3095243771266457fca1cb0cee367724e9c9b3c370f4e260d)),
-and the updater installs only an update signed by the project's pinned `CN=Shirow` certificate. The
-project contains no game files and does not bypass online ownership checks.
+Download this fork only from [its releases](https://github.com/Darts0007/Achievement-Watcher-Next/releases).
+Its builds are not code-signed, so Windows SmartScreen may warn the first time (**More info → Run
+anyway**). A download can be checked against its SHA-256: the 3.12.7 installer is
+`300e01dfbf288a592d02b5ad2a461c37ca2de8e3a8cc1ff8f22c9b0ca027e014` and the portable ZIP
+`15097eaa0695b1c865ee6c7b48f08b217f992bf426967639c75d667f1bf2d3c4`.
+
+The original app's signed builds are on its [official releases](https://github.com/Shirowwww/Achievement-Watcher-Next/releases)
+([3.12.7 on VirusTotal](https://www.virustotal.com/gui/file/fb836d9224e789f3095243771266457fca1cb0cee367724e9c9b3c370f4e260d)).
+The updater installs only an update signed by the original project's pinned `CN=Shirow` certificate,
+so it can replace this fork with an official release: turn off *Install updates automatically* to keep
+the Platinum changes. The project contains no game files and does not bypass online ownership checks.
 
 <details>
 <summary><b>My antivirus flags the emulator files</b></summary>
