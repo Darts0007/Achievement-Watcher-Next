@@ -12,7 +12,17 @@
 AW Next reads achievements, rarity and playtime from Steam, GOG, Epic, Ubisoft, EA, Xbox, PlayStation,
 local saves and console emulators, shows them in one library, and pops up each unlock while you play.
 
-All Credits go to Shirowwww, I've just forked this to add segregation between Achievements needed to unlock Platinum vs All Achievements. 
+> [!NOTE]
+> **This is a fork focused on Platinum trophies.** All credit for the app goes to [Shirowwww](https://github.com/Shirowwww/Achievement-Watcher-Next). This fork only separates the achievements a Platinum needs from the rest.
+
+| | What's new in this fork |
+| :---: | :--- |
+| 🏆 | **The Platinum unlocks on time.** It pops as soon as every base-game achievement is earned. DLC, New Game+ and other extra trophy groups no longer hold it back. |
+| 💎 | **Platinum marker.** A small platinum trophy sits beside every achievement the Platinum needs. |
+| 📂 | **Platinum Trophies section.** The base-game achievements are grouped under *Platinum Trophies*, with each DLC in its own section, in every rarity mode. |
+| 🎯 | **Platinum only button.** One click on a game's page hides everything the Platinum does not need. |
+
+<sub>Applies to games matched to their PlayStation trophy list and to Steam games with DLC achievement sets. For example, Marvel's Spider-Man Remastered: 50 of 78 achievements are needed for the Platinum.</sub>
 
 [![Latest release](https://img.shields.io/github/v/release/Shirowwww/Achievement-Watcher-Next?display_name=tag&sort=semver&style=flat-square&color=f5b301)](https://github.com/Shirowwww/Achievement-Watcher-Next/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/Shirowwww/Achievement-Watcher-Next/total?style=flat-square&color=2ea043)](https://github.com/Shirowwww/Achievement-Watcher-Next/releases)
