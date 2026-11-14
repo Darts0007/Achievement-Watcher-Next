@@ -12,6 +12,8 @@
 AW Next reads achievements, rarity and playtime from Steam, GOG, Epic, Ubisoft, EA, Xbox, PlayStation,
 local saves and console emulators, shows them in one library, and pops up each unlock while you play.
 
+All Credits go to Shirowwww, I've just forked this to add segregation between Achievements needed to unlock Platinum vs All Achievements. 
+
 [![Latest release](https://img.shields.io/github/v/release/Shirowwww/Achievement-Watcher-Next?display_name=tag&sort=semver&style=flat-square&color=f5b301)](https://github.com/Shirowwww/Achievement-Watcher-Next/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/Shirowwww/Achievement-Watcher-Next/total?style=flat-square&color=2ea043)](https://github.com/Shirowwww/Achievement-Watcher-Next/releases)
 ![Windows 10 | 11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?logo=windows&style=flat-square)
